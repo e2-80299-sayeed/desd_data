@@ -1,0 +1,153 @@
+#MQTT ( Message Queing Telementry Transport)
+-- developed by IBM in 1999
+-- light weight protocol.
+-- Publish-Subsrcibe architecture(Pub-Sub)
+
+
+#Terminologies :
+ 
+**Clients :
+	-- client is endpoint (devices which are going to send and recieve data)
+	-- clients are of two types :
+	
+		--Publisher:
+			-- going to generate data or to send data.
+			
+		--Subscriber:
+			-- going to consume data or to recieve data.
+
+**Server :
+	--Intermediate betweeen multiple clients.
+	-- server is also know as broker.
+
+eg: In Youtube we have content creators(publisher) and viewers(Subscriber)
+
+
+**Topic(Used to communicate with broker) :
+
+	--string or path which will be used to differentiate your messages.
+	-- to create multilevel topics strings are seperated by '/' --> forward slash 
+	--eg: Home automation
+		--home/room1/temperature  ---> this is a topic and they are more readable
+		--home/room2/temperature
+		--home/room3/temperature
+		
+		--home/room1/fan
+		-- home/room2/fan
+		--home/room3/fan
+		
+		--Wild card character(Special meaning) can be added to the topic.
+		eg : home/+/temperature                 -- 4 topics of temperature 
+		     home/+/+ -- valid for above example  -- 
+		     home/+   -- Not valid for above example
+ 			--'+' -- single level
+ 			
+		     home/#			-- all topics of temperature and fan
+		     	-- '#' - multiple levels
+		
+Source(Man page ) : https://mosquitto.org/man/mqtt-7.html
+		
+		Clients can receive messages by creating subscriptions. A subscription may be to an explicit topic, in which case only messages to that topic will be received, or it may include wildcards. Two wildcards are available, + or #.
+
+	+ can be used as a wildcard for a single level of hierarchy. It could be used with the topic above to get information on all computers and hard drives as follows:
+
+	    sensors/+/temperature/+
+
+	As another example, for a topic of "a/b/c/d", the following example subscriptions will match:
+
+	    a/b/c/d
+
+	    +/b/c/d
+
+	    a/+/c/d
+
+	    a/+/+/d
+
+	    +/+/+/+
+
+	The following subscriptions will not match:
+
+	    a/b/c
+
+	    b/+/c/d
+
+	    +/+/+
+
+	# can be used as a wildcard for all remaining levels of hierarchy. This means that it must be the final character in a subscription. With a topic of "a/b/c/d", the following example subscriptions will match:
+
+	    a/b/c/d
+
+	    #
+
+	    a/#
+
+	    a/b/#
+
+	    a/b/c/#
+
+	    +/b/c/#
+
+	Zero length topic levels are valid, which can lead to some slightly non-obvious behaviour. For example, a topic of "a//topic" would correctly match against a subscription of "a/+/topic". Likewise, zero length topic levels can exist at both the beginning and the end of a topic string, so "/a/topic" would match against a subscription of "+/a/topic", "#" or "/#", and a topic "a/topic/" would match against a subscription of "a/topic/+" or "a/topic/#".
+		     
+		     
+	
+       		 /*    * --> wild card character in linux. It means all (zero/more occurences of any character)
+		     ? --> single occurence of any character.
+		     eg : ls ?.txt or ls ??.txt
+		  	   --in shell they are also called as meta character.
+		   */  
+		     
+## MQTT Methods :
+
+** connect() - this method is used to connect with broker.
+** disconnect() - this method is used to disconnect with broker.
+** publish() - this method is used to publish data on some topic.
+** Subscribe() - this method is used to subscribe the topic.
+
+## Message:
+ 
+** message structure is light weight.
+** depending on messsage type, structure is going to change.
+** message consists of 3 parts.
+	--fixed header (2 bytes)
+	-- variable header (optinal)
+	-- variable payload/data (optinal)
+	
+**Message format types :
+	** fixed header.  --> only for ACK. 
+	** fixed header + variable header --> only when which topic to be subscribed.
+	** fixed header + variable header + variable payload --> olny when publishing topic.
+	
+** Types of message :
+	-- CONNECT
+	--DISCONNECT
+	--PUBLISH
+	--SUBSCRIBE 
+	--CONNACK,PUBACK, SUBACK
+
+
+	
+
+## Header :
+	-- MQTT	tvesion:
+		VERSIONS of MQTT :
+		--1.0
+		--3.0
+		--5.0  stable and latest version- authentication is supported.
+		
+	-- is_to_retain :
+		-- 0 - message is not retained on broker 
+		-- 1 - message is retained on broker 
+	-- by default broker retians last message send on topic.
+	
+	-- Quality of service (QoS) : 
+		-- message delivery guarantee is decided by QoS level.
+		-- There are 3 QoS levels :
+			-- 0 - message will be send only once with no ACK.
+			-- 1 - message will be send at least once with ACK.
+			-- 2 - message will be send only once with 4 handshake ACK mechanism.
+		-- By default QoS level is 1.
+		
+		
+Mosquitto server/client: the broker will listen on port 1883.
+

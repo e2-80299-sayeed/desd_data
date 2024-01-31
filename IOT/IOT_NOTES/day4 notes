@@ -1,0 +1,23 @@
+JSON = javascript object Notation.
+JSON is a self describing.
+JSON is a kind of Dictionary.
+Data is stored in Key/value pairs.
+curly{} braces hold the objects of JSON
+square [] braces hold  arrays of JSON
+
+JSON Data - A Name and a value
+	"name" : xyz
+
+JSON Objects
+	{"name": "xyz", "address": "pune"}
+
+JSON Arrays 
+	"employees":[
+		{"name": "xyz", "address": "pune"},
+		{"name": "abc", "address": "mumbai"},
+		{"name": "pqr", "address": "delhi"}
+	] 
+	
+	
+	
+
