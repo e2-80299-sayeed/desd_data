@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/classwork/LDM_driver/ldm_gpio.mod := printf '%s\n'   ldm_gpio.o | awk '!x[$$0]++ { print("/home/sayeed/DESD/sayeed_data/ELDD/classwork/LDM_driver/"$$0) }' > /home/sayeed/DESD/sayeed_data/ELDD/classwork/LDM_driver/ldm_gpio.mod

@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/classwork/demo01/modules.order := {   echo /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo01/hello.o; :; } > /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo01/modules.order

@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/ktimer.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/ktimer.ko /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/ktimer.o /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/ktimer.mod.o;  true

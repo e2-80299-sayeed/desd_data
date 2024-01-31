@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/classwork/LDM_driver/Module.symvers :=  scripts/mod/modpost -m -a     -o /home/sayeed/DESD/sayeed_data/ELDD/classwork/LDM_driver/Module.symvers -T /home/sayeed/DESD/sayeed_data/ELDD/classwork/LDM_driver/modules.order -i Module.symvers -e 

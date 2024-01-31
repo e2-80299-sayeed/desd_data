@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/Day08/pchar05_multidev/pchar.mod := printf '%s\n'   pchar.o | awk '!x[$$0]++ { print("/home/sayeed/DESD/sayeed_data/ELDD/Day08/pchar05_multidev/"$$0) }' > /home/sayeed/DESD/sayeed_data/ELDD/Day08/pchar05_multidev/pchar.mod

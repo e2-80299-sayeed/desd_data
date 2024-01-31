@@ -1,0 +1,234 @@
+#pragma pack(1)
+struct test {
+   int a;		-- 4 bytes
+   unsigned b:4;	-- 4 bits = 1 bytes
+   int c;		-- 4 bytes
+};
+
+9 bytes
+
+======================================================
+
+struct test {
+   int a;		-- 4 bytes
+   unsigned b:4;	-- 4 bits = 1 bytes + 3 slack bytes
+   int c;		-- 4 bytes
+};
+
+12 bytes
+
+======================================================
+#pragma pack(1)
+struct test {
+   int a;		-- 4 bytes
+   unsigned b:2;	
+   unsigned d:3;	
+   int c;		-- 4 bytes
+};
+
+
+#pragma pack(1)
+struct test {
+   int a;		-- 4 bytes
+   unsigned b:2;	
+   int c;		-- 4 bytes
+   unsigned d:3;	
+};
+
+#pragma pack(1)
+struct test {
+   int a;		-- 4 bytes
+   unsigned b:2;	
+   int c;		-- 4 bytes
+   unsigned d:9;	
+   int e;		-- 4 bytes
+};
+
+-------------------------------------------------------------------
+
+Cortex-M architecture
+  * State
+    * Thumb state -- normal execution state
+    * Debug state -- step by step execution
+  * Mode
+    * Thread mode -- normal code/os code executes
+       * Power ON -- Thread mode --> Reset Handler --> main()
+    * Handler mode -- exception handler (except reset) executed in this mode
+       * Normal code (Thread M) --> Interrupt --> Handler code (Handler M) --> Normal code (Thread M)
+  * Privilege Level
+    * PL=0 -- privileged level
+       * Handler execution
+       * In bare metal, all execution in priv level
+       * In Embedded OS, system/kernel code in priv level
+    * PL=1 -- unprivileged level
+       * In Embedded OS, for user tasks/code
+  * Stack selection
+    * In bare metal only MSP is used.
+    * In embedded OS
+       * Handler code + Kernel code -- MSP is used
+       * User tasks -- PSSP is used
+  * Priv level and Stack selection --> CONTROL register
+
+  * Register Banking
+     * SP is banked -- PSP & MSP
+         * Register is bank in/out while exception occur and handler return.
+
+  
+--------------------------------------------------------------------------------
+
+FIQ faster than IRQ
+  * FIQ prio is more than IRQ.
+  * FIQ (I=1, F=1) can preempt IRQ, but IRQ (I=1, F=0) cannot preempt FIQ. 
+  * FIQ has its own copy of r8-r12 GPR. So no context saving required.
+  * The last entry in exception vector table, so can directly place code there. No need of jump instruction.
+  * Usually single intr configured as FIQ (in VIC). So no VIC interaction required to know the peripheral from which intr occur.
+
+--------------------------------------------------------------------------------
+
+Cortex-M --> NMI (Non-maskable interrupt).
+  * Cannot be disabled (using FaultMask, PriMask, ...)
+  * NMI --> NMI_Handler()
+  * ARM 7 FIQ is not same as NMI. Because FIQ can be enabled/disabled.
+
+--------------------------------------------------------------------------------
+
+RS-232:
+  * Physical
+    * Point to Point
+    * 2 wires: Rx/Tx
+    * Full duplex
+    * Voltage level: CMOS (0=+3V to +25V, 1=-3V to -25V)
+    * Baud rate: 9600, 38400, 115200, ...
+    * ASync
+  * Logical
+    * Frame:
+      * 1 start = 0
+      * 5 to 9 data bits = lsb (first) to msb
+      * 1 parity = off/even/odd
+      * 1/2 stop = 1
+  * Error
+    * Parity error: Parity not match by Rx
+    * Frame error: Stop bit=0
+    * Read overrun: Rx data is overwritten
+    * Noise error (STM32)
+  * Applications
+    * Modem, RFID, Bluetooth, ...
+
+--------------------------------------------------------------------------------
+
+I2C: Inter IC Communication
+  * Physical:
+     * 2 wire: SDA, SCL
+        * Wired AND (with 4.7K pull up): If any one device pulls line low, then effective line voltage is low.
+     * Half duplex
+     * Bus protocol (120 devices on a bus)
+     * Voltage: TTL
+     * Freq: 100KHz, 400KHz, 1MHz
+     * Sync
+  * Logical:
+     * start + 8 bit data (msb first) + 1 bit ack + stop
+     * start bit: falling edge on SDA when SCL is high
+     * stop bit: rising edge on SDA when SCL is high
+     * Multi-byte write:
+       * S + I2CAddr W A + IntAddr A + Data A + Data A + ... + S
+     * Multi-byte read:
+       * S + I2CAddr W A + IntAddr A + Repeat S + I2CAddr R A + Data A + Data A + ... + Data NA + S
+  * Error conditions:
+  * Clock stretching:
+     * Rcvr pulls SCL line low when it busy in processing earlier received data.
+     * Due to wired AND, effective SCL line = 0 i.e. no clock ==> No further data trasfer
+     * Once data processing is done, rcvr release the line.
+  * Bus arbitration:
+     * Two masters try to begin commn on same time (i.e. sent start bit and addr packet together).
+     * The SDA line has voltage level check cct, that verifies the line voltage and compare with the voltage set by trans.
+     * If multiple devices start commn at same time, then the one sent 0 (low) first will win the arbitration (wired AND). The device sending 1, will return back to slave mode.
+  * Applications
+     * RTC, 7-Seg, EEPROM, LCD, ...
+
+--------------------------------------------------------------------------------
+
+SPI: Serial Peripheral Interface
+  * Physical:
+     * 4 wire: SCL/SCK, SDO/MOSI, SDI/MISO, CE/SS
+     * Full duplex
+     * Bus protocol
+     * Voltage: TTL
+     * Freq: Higher than I2C
+     * Sync
+  * Logical:
+     * CPOL, CPHA --> SPI Mode --> Sampling on
+       * 0, 0  --> 0 --> rising
+       * 0, 1  --> 1 --> falling
+       * 1, 0  --> 2 --> falling
+       * 1, 1  --> 3 --> rising
+     * CPOL = 0 (clock base = low), CPOL = 1 (clock base = high)
+     * CPHA = 0 (leading edge), CPHA = 1 (trailing edge)   
+     * CE=0, 8-bit/16-bit data, CE=1
+     * Multi-byte write:
+       * Device CE=0 + IntAddr W + Data + Data + ... + CE=1
+     * Multi-byte read:
+       * Device CE=0 + IntAddr R + Data + Data + ... + CE=1
+  * Error conditions:
+  * Applications
+     * SD Card, Accel, RTC, 7-Seg, EEPROM, LCD, ...
+  * Daisy chaining
+     * Without daisy chaining you need one CS/CE/SS for each slave device.
+     * With single GPIO we can select all slaves and data transfer is done in cascaded fashion.
+
+--------------------------------------------------------------------------------
+
+CAN: Controller Area Network
+  * Physical:
+    * Bus protocol
+    * Half duplex
+    * Two wire -- Twisted pair (H/L) (low noise) -- Differential bus -- NRZ (idle voltage=2.5V not 0V)
+       * impedance: 120 ohm
+       * 0 -- dominant -- H=3.5, L=1.5 (diff = 2V)
+       * 1 -- recessive -- H=2.5, L=2.5 (diff = 0V)
+    * Speed -- upto 1 MBPS
+    * ASync
+  * Logical:
+    * OSI layers: Data Link (logical) + Physical Layer (physical)
+    * Standard Frame
+       * 11-bit message id, dlc, data (0-8 bytes), crc, rtr, ide=0, ack, eof, ifs
+    * Extended Frame
+       * 29-bit message id, dlc, data (0-8 bytes), crc, srr, ide=1, ack, eof, ifs
+  * Error conditions
+    * Form error (eof=dominant)
+    * Ack error
+    * CRC error
+    * Bit error
+    * Bit stuffing -- 1 bit of reverse polarity after 5 bits of same polatrity (coded/decoded)
+  * Applications: auto-mobile, icu, ...
+
+  * Acceptance Filter
+    * give ID/range/mask to accept the messages.
+  * Mailbox -- to transmit the message
+    * (message = header (id,dlc,data) + payload) --> Mailbox --> Trasmission
+  * Time quantas (advanced)
+
+  * CAN arbitration
+    * Multiple devices start commn (start bit) at same time.
+    * The one who send dominant bit first, wins arbitration and other loose arb.
+
+  * bxCAN = Basic Extended CAN = CAN 2.0 B
+    * Extended frame supported
+
+* Wired-AND vs Twisted Wire
+   * Wired-AND = I2C bus
+      - Any one device pulls line low, effective voltage is low.
+      - Feature is useful for ack, arbitration, clock stretching.
+   * Twisted bus = CAN
+      - Equal noise on both wires and difference will remain same (no data change due to noise).
+
+* Bit Banding
+   * 1 bit of IO device/SRAM -- mapped to -- 1 word in address space.
+      - write --> 1 word --> write the bit
+      - read <-- 1 word <-- read the bit
+   * Formula: bit_word_offset = byte_offset x 32 + bit_offset x 4
+   * Advantage: Bus is locked during the operation (RCU operation) -- no preemption
+      - No need of bitwise operators (efficient & readable code)
+
+
+
+

@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/classwork/demo10/Module.symvers :=  scripts/mod/modpost -m -a     -o /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo10/Module.symvers -T /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo10/modules.order -i Module.symvers -e 

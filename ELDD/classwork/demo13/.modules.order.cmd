@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/modules.order := {   echo /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/ktimer.o; :; } > /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/modules.order

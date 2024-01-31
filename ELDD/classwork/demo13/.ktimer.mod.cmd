@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/ktimer.mod := printf '%s\n'   ktimer.o | awk '!x[$$0]++ { print("/home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/"$$0) }' > /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo13/ktimer.mod

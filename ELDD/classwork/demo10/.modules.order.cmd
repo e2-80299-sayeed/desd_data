@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/classwork/demo10/modules.order := {   echo /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo10/kernlist.o; :; } > /home/sayeed/DESD/sayeed_data/ELDD/classwork/demo10/modules.order

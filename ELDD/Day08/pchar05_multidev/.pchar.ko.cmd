@@ -1,0 +1,1 @@
+cmd_/home/sayeed/DESD/sayeed_data/ELDD/Day08/pchar05_multidev/pchar.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/sayeed/DESD/sayeed_data/ELDD/Day08/pchar05_multidev/pchar.ko /home/sayeed/DESD/sayeed_data/ELDD/Day08/pchar05_multidev/pchar.o /home/sayeed/DESD/sayeed_data/ELDD/Day08/pchar05_multidev/pchar.mod.o;  true
