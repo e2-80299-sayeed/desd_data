@@ -1,0 +1,15 @@
+1. Divide linear queue program in multiple files.
+
+2. Take size from user and implement following for user entered size
+	a. stack
+	b. queue
+
+3. Do necessory changes in code of stack if top is initialized to 0.
+
+4. Create stack of names(char [ ]) and test it for various functionalities.
+
+5. Create stack of books(name, author, price and pages) and test various functionalities.
+
+6. Write a function 'is_operand()' to check passed character is operand or not.
+
+7. Create array of 10 integers with two functionalities like add() and remove() elements. Do multiple add and remove operations and at any time your program should support 4 undo and redo operations.
