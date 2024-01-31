@@ -1,0 +1,381 @@
+11:18:46 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+11:18:57 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+22:27:51 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+22:33:09 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:130:31: error: expected ')' before '{' token
+  130 |                   if((num & 1)
+      |                     ~         ^
+      |                               )
+  131 |                   {  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+      |                   ~            
+../Core/Src/main.c:158:11: error: expected expression before '}' token
+  158 |           }
+      |           ^
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+22:34:48 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:130:31: error: expected ')' before '{' token
+  130 |                   if((num & 1)
+      |                     ~         ^
+      |                               )
+  131 |                   {  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
+      |                   ~            
+../Core/Src/main.c:158:11: error: expected expression before '}' token
+  158 |           }
+      |           ^
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+22:35:14 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+22:35:19 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+22:36:04 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+22:38:42 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+22:47:39 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+22:49:37 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+22:50:46 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+22:53:29 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:142:29: warning: initialization of 'int' from 'char *' makes integer from pointer without a cast [-Wint-conversion]
+  142 |                   int num = str - '0';
+      |                             ^~~
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+22:55:21 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:146:29: warning: initialization of 'int' from 'char *' makes integer from pointer without a cast [-Wint-conversion]
+  146 |                   int num = str - '0';
+      |                             ^~~
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11176	     20	   1740	  12936	   3288	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+22:55:54 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11176	     20	   1740	  12936	   3288	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+22:56:06 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11176	     20	   1740	  12936	   3288	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+22:58:53 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11168	     20	   1740	  12928	   3280	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+23:01:59 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+23:02:56 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:04:24 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:05:58 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:07:15 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:08:30 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:09:54 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:10:24 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:11:34 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:14:16 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+23:15:08 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11596	     20	   1740	  13356	   342c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:16:52 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11604	     20	   1740	  13364	   3434	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+23:20:14 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11640	     20	   1740	  13400	   3458	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+23:20:45 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-size   MCPI_Lab.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11640	     20	   1740	  13400	   3458	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+23:22:02 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11640	     20	   1740	  13400	   3458	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+23:23:19 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11644	     20	   1740	  13404	   345c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+23:27:25 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11644	     20	   1740	  13404	   345c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
+23:29:59 **** Incremental Build of configuration Debug for project MCPI_Lab ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "MCPI_Lab.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/sayeed/STM32CubeIDE/MCPI_LAB_EXAM/MCPI_Lab/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MCPI_Lab.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MCPI_Lab.elf
+ 
+arm-none-eabi-size   MCPI_Lab.elf 
+arm-none-eabi-objdump -h -S  MCPI_Lab.elf  > "MCPI_Lab.list"
+   text	   data	    bss	    dec	    hex	filename
+  11644	     20	   1740	  13404	   345c	MCPI_Lab.elf
+Finished building: default.size.stdout
+ 
+Finished building: MCPI_Lab.list
+ 
