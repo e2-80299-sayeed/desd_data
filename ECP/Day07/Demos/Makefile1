@@ -1,0 +1,18 @@
+
+# Rule 1
+demo03.out:	demo03.o
+	gcc -o demo03.out demo03.o
+
+# Rule 2
+demo03.o: demo03.c
+	gcc -c demo03.c
+
+# Rule 3
+run:
+	./demo03.out
+
+# Rule 4
+clean:
+	rm *.o *.out
+
+.phony: run clean

@@ -1,0 +1,38 @@
+
+TARGET=demo01
+
+SRC=$(TARGET).c
+OBJ=$(SRC:.c=.o)
+
+CC=gcc
+
+CFLAGS=-m32
+LDFLAGS=-m32 -lm
+
+# Rule 1 - Linking
+$(TARGET): $(OBJ)
+	$(CC) $(LDFLAGS) -o $(TARGET) $(OBJ)
+
+# Rule 2 - Compiling
+$(OBJ):	$(SRC)
+	$(CC) $(CFLAGS) -c $(SRC)
+
+# Rule 3 - Running
+run:
+	./$(TARGET)
+
+# Rule 4 - Cleaning
+clean:
+	rm $(OBJ) $(TARGET)
+
+.phony: run clean
+
+
+
+
+
+
+
+
+
+

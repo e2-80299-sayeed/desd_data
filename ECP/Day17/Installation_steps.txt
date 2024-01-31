@@ -1,0 +1,21 @@
+Steps to install STM32Cube IDE:
+1. Download ide from link
+	https://www.st.com/en/development-tools/stm32cubeide.html
+2. Extract downloaded zip file
+	$ unzip en.st-stm32cubeide_1.10.1_12716_20220707_0928_amd64.deb_bundle.sh.zip
+3. Chnage dirctory to extracted directory
+	$ cd en.st-stm32cubeide_1.10.1_12716_20220707_0928_amd64.deb_bundle.sh
+3. Add executable permissions to the script
+	$ chmod +x st-stm32cubeide_1.10.1_12716_20220707_0928_amd64.deb_bundle.sh
+4. Run script to install it.
+	$ sudo ./st-stm32cubeide_1.10.1_12716_20220707_0928_amd64.deb_bundle.sh
+
+
+1. File --> new --> STM32 Project
+2. Target Selection
+	Board Selector --> Commercial part number :- search STM32F407G-DISC1
+	Select board from board list
+3. Setup STM32 Project
+	Give project name and click on next
+4. Firware Library Package Setup
+	Click on Finish

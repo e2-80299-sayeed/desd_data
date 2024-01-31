@@ -1,0 +1,22 @@
+
+TARGET=main
+SRC=$(TARGET).c
+OBJ=$(SRC:.c=.o)
+
+CC=gcc
+CFLAGS=
+LDFLAGS=
+
+$(TARGET): $(OBJ)
+	$(CC) $(LDFLAGS) $(OBJ) -o $(TARGET)
+
+$(OBJ): $(SRC)
+	$(CC) $(CFLAGS) -c $(SRC)
+
+run:
+	./$(TARGET)
+
+clean:
+	rm *.o $(TARGET)
+
+
