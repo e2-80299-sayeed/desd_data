@@ -1,0 +1,62 @@
+RTOS is OS in which accuracy of result is not only dependent on "correctness of the calculation", but
+also depeneds on "time duration" in which results are produced.
+
+Based on timing requirements there are three types of RTOS
+Hard realtime OS
+Soft realtime OS
+Firm realtime OS
+
+Hard realtime OS
+If interrupt/tasks deadline miss -- catastrophic effect.
+Usually doesn't have secondary storage.
+Timing: 10 to 100 "usec"
+E.g. uC-OS, FreeRTOS, Xenomai, RTAI, ...
+
+Soft realtime OS
+Less time critical - If deadline miss, affect product quality (not catastrophic).
+May have secondary storage
+Timing: 1 ms to 10 ms
+E.g. Linux (PREEMP_RT), ...
+
+Firm realtime OS
+Like hard realtime.
+Rare miss of deadline is acceptable (not catastrophic)
+
+RTOS essentials
+RTOS Norms (POSIX)
+
+Multi-tasking
+Tasks must be "light-weight".
+
+Priority scheduling
+Each task must have priority.
+
+Pre-emptive
+High priority task should preempt low priority task (immediately).
+High priority task should never wait for/due to low priority task.
+
+Inter-task communication
+Deterministic latency
+Deterministic memory allocation
+Deterministic interrupt latency
+Deterministic scheduling latency
+Deterministic scheduler duration
+Must handle problem of "priority inversion".
+
+Interrupt latency
+Time from arrival of interrupt to begin execution of ISR.
+ARM 7: 24-30 CPU cycles (can vary due to implementation of IRQ_Handler).
+ARM CM3: 12 CPU cycles (no software IRQ handler)
+It may delay due to interrupt masking.
+
+Scheduler latency
+Time from completion of ISR to begin execution of scheduler.
+Depends on house-keeping work done by system after ISR call.
+
+Memory latency
+Time required for allocating memory block.
+Memory allocation must be done in fixed time.
+
+ITC latency
+Inter-task communication must be completed in fixed time.
+There can be priority for the messages.

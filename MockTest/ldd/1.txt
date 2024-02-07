@@ -1,0 +1,343 @@
+Standard linker is not used to link kernel modules. Modules
+are linked dynamically with kernel using insmod like utilities.
+Since standard linker is not used to link kernel modules,
+user-space libraries (including C library) cannot be used in
+kernel modules. Instead kernel modules can access only
+functions exported by the kernel, called as Kernel APIs.
+
+Typical user programs have single entry point i.e. main().
+Program is terminated when main() is completed. Kernel
+modules have multiple entry-points. Also kernel modules
+are not terminated, when entry point function is finished.
+
+Kernel module code is re-entrant i.e. while one thread is
+executing a kernel module function, another thread can also
+begin execution of the same.
+Size of kernel stack much smaller than user-space process
+stack.
+If user space application need to pass data to/from kernel
+module, then user space buffer should not be accessed directly
+from kernel space and vice-versa. The data should be copied
+using architecture dependent code.
+
+Each kernel module have at least two entry point functions i.e. init and exit.
+Traditionally their names as init_module() and cleanup_module().
+Programmer may choose different names using module_init() & module_exit() macros
+These functions are marked with __init and __exit attributes.
+
+Kernel modules can access functions exported by the kernel or other
+kernel module.
+
+All unresolved symbols (e.g. printk()) are resolved at the time of loading that module (i.e.
+insmod) from kernel symbol table. This table can be viewed via /proc/kallsyms.
+
+Kernel module is represented by struct module in the Linux kernel.
+
+All kernel modules
+info can be accessed via /sys/module or /proc/modules or "lsmod" command.
+
+open() syscall internals --> kernel data structures i.e. inode table, open file table, open file descriptor table
+
+Module loading sequence can be automated using modprobe tool.
+modprobe tool loads modules from /lib/modules/`uname -r`. The module dependency
+is read from modules.dep file. This file is built using depmod tool.
+
+EXPORT_SYMBOL(symbol):
+Creates a name of symbol as "static const char[]" and store it in special section
+"__ksymtab_strings".
+Also create a struct "kernel_symbol" variable that stores address of the variable and its
+name in another special section "__ksymtab".
+If Linux kernel version control is enabled, CRC is also stored in special section
+"__kcrctab". e.g. if a variable by name "get_rms" is exported using "EXPORT_SYMBOL",
+During loading a module these special sections (__ksymtab) are read from .ko file and
+information in that is added into kernel symbol table.
+
+Directory file contains directory entries
+for each sub-directory and file in it.
+Each dentry contains inode number &
+data block.
+
+File systems have
+Book block
+Super block
+Inode list
+Data blocks
+
+Driver initialization includes
+ Allocate device number
+ Create device class & file
+ Init cdev object & add it.
+ Driver de-initialization includes
+ Release cdev
+ Destroy device file & close
+ Release device number
+ Implement minimal device operations
+ open() and release()
+ read() and write()
+
+Each device is uniquely identified by a
+major number and minor number.
+(Kernel < 2.6): 16 bit device number
+ 8-bit major + 8-bit minor.
+ (Kernel >= 2.6): 32 bit device number
+ 12-bit major + 20-bit minor.
+ 32 bit = 8 bit(minor) + 12 bit(major) + 12 bit(minor)
+ Device number represented as dev_t.
+ MKDEV(major, minor)
+ MAJOR(devno)
+ MINOR(devno)
+
+
+Char device added in kernel space should be accessible from user space.
+ Traditionally device is created using mknod.
+ mknod /dev/devname c major minor
+ In newer kernel device is accessible from sysfs and devfs.
+ Device class is created under /sys/class
+ pclass = class_create􀀋􀁐􀁒􀁇􀁘􀁏􀁈􀀏􀀃􀂳class_name􀂴􀀌􀀞
+ Device file is create under /sys/devices/ virtual/class_name/devname and
+/dev/devname
+ pdev = device_create(pclass, NULL /*parent*/, devno, NULL /*drvdata􀀍􀀒􀀏􀀃􀂳devname􀂳􀀏􀀃􀂫􀀌􀀞
+ Device class and device file are destroyed using.
+ device_destroy(pclass, devno);
+ class_destroy(pclass);
+
+Driver device operations can be do one of the following:
+ Overwrite default function
+ Provide additional functionality
+ Minimal placeholder
+ NULL 􀂱 use default/no implementation
+
+Closes the device, decrement reference count & releases memory synchronously.
+ The typical implementation release all the resources allocated in open() operation.
+ If unimplemented, these things are done by the kernel in its default function.
+ Not every close() syscall causes release() operation to be invoked
+ When dup() or fork() is called, no new struct file is created; rather only increments
+reference count in it.
+ Each call to close() decrements the reference count.
+ Only if count drops to 0, the release() operation is invoked.
+ This ensures that only one release() is called per open().
+ In pseudo char device driver, there is no physical device involved and hence this
+function is kept empty.
+
+read()operation
+Reads the device and transfers data from device to user-space.
+ If kept NULL, read() syscall (from user-space) will fail.
+ pseudo char device driver read() implementation:
+ Get how many bytes of data is left in buffer.
+ Decide number of bytes to be copied in user space buffer (min of available and user
+buffer length).
+ If bytes to read is 0, then obviously it means no data left in buffer (EOD).
+ Copy bytes from device buffer to user buffer using copy_to_user() from current file
+position.
+ copy_to_user() returns number of bytes not copied. Calculate number of bytes
+successfully copied.
+ Modify the file position.
+ Return number of bytes successfully read.
+
+write()operation
+Writes the device and transfers data from user-space to device.
+􀂇 If kept NULL, write() syscall (from user-space) will fail.
+􀂇 pseudo char device driver write() implementation:
+􀂇 Get how many bytes of empty space left in buffer.
+􀂇 Decide number of bytes to be copied from user space buffer (min of empty space and
+user buffer length).
+􀂇 If bytes to write is 0, then it means no space left in buffer (ENOSPC).
+􀂇 Copy bytes from user buffer to device buffer using copy_from_user() from current file
+position onwards.
+􀂇 copy_from_user() returns number of bytes not copied. Calculate number of bytes
+successfully copied.
+􀂇 Modify the file position.
+􀂇 Return number of bytes successfully written.
+
+
+Modify current file position of the device.
+􀂇 Pseudo char device driver llseek() implementation:
+􀂇 Calculate new position depending on offset and origin.
+􀂇 If origin is SEEK_SET (0), new pos = 0 + offset. (offset is +ve)
+􀂇 If origin is SEEK_CUR (1), new pos = cur pos + offset. (offset is +ve/-ve)
+􀂇 If origin is SEEK_END (2), new pos = cur pos + offset. (offset is -ve)
+􀂇 Ensure that new file position is valid. Otherwise do the necessary adjustment.
+Return the new file position.
+
+Using kfifo in char device driver
+􀂇 Instead of using fixed sized buffer, it is recommended to use kfifo for better memory
+utilization.
+􀂇 Can be allocated statically (using DEFINE_FIFO) or dynamically (using kfifo_alloc()).
+􀂇 kfifo is commonly used to store data
+􀂇 from hardware device (before sending to user space).
+􀂇 from user space (before sending to hardware device).
+􀂇 Copying data from or to user space directly is possible using kfifo_from_user() and
+kfifo_to_user().
+􀂇 If synchronization is needed, kfifo_in_spinlocked() and kfifo_out_spinlocked() can be
+used.
+
+ioctl() is one of the advanced operation in char drivers.
+
+
+ioctl() is special ad-hoc operation that can be used for arbitrary purposes.
+􀂇 Manipulating device state directly.
+􀂇 Monitoring device state (debugging).
+􀂇 Direct hardware control operations.
+
+Old kernel version: 16 bit cmd = 8 bit device magic no (type) + 8 bit sequential value.
+􀂇 Refer Documentation/ioctl-number.txt for list of magic numbers used in kernel.
+􀂇 New kernel version: 32 bit cmd = 8 bit type (magic) + 8 bit ordinal number + 2 bit direction
+(NONE, READ, WRITE, READ|WRITE) + 13-14 bit width of data transfer (arch depend)
+􀂇 cmd argument is created using _IO(), _IOR(), _IOW(), _IOWR()
+
+IO devices are interfaced with CPU via IO ports.
+􀂇 On x86 system, this is IO mapped IO.
+􀂇 On ARM system, this is memory mapped IO.
+
+Spinlock
+* Semaphore/mutex should not be used in interrupt context (ISR), because ISR should never sleep.
+* Semaphore is internally a counter and mutex is a lock. If multiple processes try to use the Semaphore/mutex simultaneously, 
+there may be race condition for Semaphore/mutex itself.
+
+
+Spinlock working
+* Spinlock is a variable -- 0 (unlocked/available) or 1 (locked/busy).
+* Spinlock initialization. It is unlocked.
+	```
+	lock = 0;
+	```
+* To lock a spinlock: If spinlock is busy, wait (busy wait loop); otherwise lock.
+	```
+	while(lock == 1)
+		;
+	lock = 1;
+	```
+* To unlock a spinlock, clear it.
+	```
+	lock = 0;
+	``
+
+ Semaphore vs Mutex vs Spinlock
+* Spinlock are busy wait (not sleep).
+* Can be used in interrupt context.
+* Available only in kernel space.
+
+#### Spinlock usage
+* Can be used only in kernel space.
+* Can be used in process context or interrupt context.
+* Use spinlock for minimal possible time duration.
+* Do not sleep or exit with spinlock in lock state.
+
+Buddy allocator
+The merging is done only if required contiguous memory is not available while allocating higher order block. This is called as lazy coalescing.
+
+Slab allocator
+* To allocate smaller objects buddy allocator should not be used. Because it allocates minimum memory of 1 page (i.e. 4 KB). If used for smaller objects, rest of allocated memory will be wasted. This is "internal fragmentation".
+* For smaller objects memory allocation, Linux kernel have slab allocator (or slub allocator).
+* Slab allocator maintains caches of pre-defined objects. When kmalloc() is called, depending on size, the object is allocated from the corresponding cache.
+    * sudo cat /proc/slabinfo
+* Slab caches are made up of slabs. Few slabs can be full, partial, or empty.
+* Each slab is made up of number pages in consecutive memory. Slab allocator internally calls buddy allocator to allocate each slab.
+* All objects in the cache are in pre-initialized state (when cache is created).
+* When a new object is requested, pre-allocated but unused object address is returned.
+* When the object is released, that object is marked free/unused into the slab.
+* If all slabs are full, then new slabs will be allocated and added into the cache. 
+* In case of memory shortage, empty slabs are released.
+* APIs:
+    * ptr = (type-cast)kmalloc(size, gfp_mask);
+    * kfree(ptr);
+pages per slab = 8 it . 8×41<=32KB
+MUM of obj per slab = 321<3/6208 = 5
+
+vmalloc()
+* Buddy allocator allocates physical pages and kmalloc() allocates smaller objects.
+* To allocate virtually contigous memory block use vmalloc().
+* vmalloc() allocate contigous range virtual addresses for the current/calling process. It will also create necessary page table entries.
+
+Types of bottom halves
+􀂇 BH - Removed in kernel 2.5
+􀂇 Task queue - Removed in kernel 2.5
+􀂇 Softirq - Added in kernel 2.3
+􀂇 Tasklet - Added in kernel 2.3
+􀂇 Work queue - Added in kernel 2.3
+
+Choosing bottom half
+
+􀂇 Softirq
+􀂇 Concurrent execution and need synchronization
+􀂇 Good for fast execution and high frequency use
+􀂇 Cannot sleep
+
+􀂇 Tasklet
+􀂇 Simplified programming
+􀂇 Not executed concurrently
+􀂇 Cannot sleep
+
+􀂇 Work queue
+􀂇 Can sleep
+􀂇 Higher overheads due to kernel thread & context switching
+
+
+sofirqs must be triggered for execution.This is called as raising sofirq mostly done from isr.
+Softirq can be registered using open_softirq() and can be triggered using raise_softirq().
+
+
+Tasklets
+Implemented on top of Softirqs i.e. HI_SOFTIRQ and TASKLET_SOFTIRQ.
+
+
+􀂇 An interface contains one or more endpoints.
+􀂇 Endpoints are also called as data pipes.
+􀂇 Endpoint is basic unit through which communication
+is done with device.
+􀂇 Endpoint is uni-directional. It can be IN or OUT.
+
+USB Endpoints
+􀂇 Based of functionalities there are four types of endpoints:
+􀂇 Control
+􀂇 Control EP must be there in each interface.
+􀂇 Used for config or getting status.
+􀂇 Small in size.
+􀂇 USB core will guarantee of the bandwidth.
+􀂇 Interrupt
+􀂇 If device is generating interrupt which should be handled by host, then interrupt is passed via this EP to host.
+􀂇 Small in size.
+􀂇 USB core will guarantee of the bandwidth.
+􀂇 Bulk
+􀂇 Data transfer endpoint.
+􀂇 Can be IN or OUT.
+􀂇 Programmer need to allocate buffer for bulk endpoints.
+􀂇 Isochronous
+􀂇 Data transfer endpoint.
+􀂇 Ensures continuity of data transfer, but some data packets might be lost.
+􀂇 Mainly used for audio/video streaming.
+􀂇 Programmer need to allocate buffer for bulk endpoints.
+
+Linux platform bus is pseudo bus or virtual bus to handle
+embedded buses/devices.
+
+RPi provides i2c host controller driver and
+client drivers implemented in user or kernel
+space.
+
+
+suspend() is called to put device is pause/sleep (low power) state.
+􀂇 resume() is called to set device in normal state (from sleep state).
+􀂇 shutdown() is called to stop the device during system shutdown.
+
+SMBus protocol is compatible & subset of I2C.
+􀂇 SMBus speed is 10 KHz to 100 KHz with
+timeout of 35ms (clock stretching < 35ms).
+
+SPI sub-system has 3 parts
+􀂇 SPI core 􀂱 provides core data structures, registration, cancellation
+and unified interface for SPI drivers. It is platform independent.
+(kernel/drivers/spi/spi.c).
+􀂇 SPI controller driver 􀂱 low-level (hardware register level) platform
+specific driver usually implemented by vendor. Loaded while system
+booting & provides appropriate read(), write().
+􀂇 SPI protocol driver 􀂱 handle/interact with SPI device. The interaction
+is in terms of messages and transfers.
+􀂇 SPI Transfers and Messages
+􀂇 Transfer 􀂱 defines a single operation between master and slave. Use
+tx/rx buffer pointers and optional delay/chip select behaviour after op.
+􀂇 Message 􀂱 atomic sequence of transfer. Argument to all SPI
+read/write functions.
+
+busybox-minimal tools that contains most commonly used tools.lightweight.
+

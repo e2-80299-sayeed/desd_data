@@ -1,0 +1,150 @@
+ EM Waves are used to transfer data from sender to receiver
+
+Personal Area Network
+§ Smallest network which is very personal to the user
+§ E.g. BlueTooth
+
+§ Local Area Network
+§ Spans across building(s) and operated under single administrative system
+§ E.g. company, school network
+§ Technologies: TokenRing or Ethernet
+
+§ Metropolitan Area Network
+§ Spans across cities
+§ E.g. cable network
+§ Technologies: high speed fiber optics
+
+§ Wide Area Network
+§ Spans across countries
+§ Technologies: ATM, Frame Relay
+
+Physical arrangement of computers is known as topology
+§ Famous topologies
+§ Bus
+§ Ring
+§ Star
+§ Mesh
+
+Layered architecture having 7 layers
+§ Application
+§ Presentation
+§ Session
+§ Transport
+§ Network
+§ Data Link
+§ Physical
+
+§ HTTP [80]: Hyper Text Transfer Protocol
+§ HTTPs [443]: Secure Hyper Text Transfer Protocol
+§ FTP [20, 21]: File Transfer Protocol
+§ SFTP [115]: Simple FTP
+§ DNS [53]: Domain Name Service
+§ NFS [1023]: Network File System
+§ POP3 [110]: Post Office Protocol
+§ SMTP [25]: Simple Mail Transfer Protocol
+§ SSH [22]: Secure Shell
+§ LDAP [389]: Lightweight Directory Access Protocol
+
+Presentation Layer
+§ Serves as the data translator for the network
+§ Also known as syntax layer
+§ Responsible for
+§ Translation
+§ Compression/Decompression
+§ Encoding/Decoding
+§ Encryption/Decryption
+
+Session Layer
+§ Provides mechanism for opening, closing and managing session between processes
+§ Communication sessions consist of requests and responses that occur between applications
+§ Protocols
+§ ASP: AppleTalk Session Protocol
+§ ADSP: AppleTalk Data Stream Protocol
+§ NetBIOS: Network BIOS
+§ PAP: Password Authentication Protocol
+§ PPTP: Point to Point Tunnelling Protocol
+§ RPC: Remote Procedure Call
+§ SCP: Session Control Protocol
+§ SDP: Socket Direct Protocol
+--
+SIP : session Initiation Protocol
+
+Transport Layer
+§ Provide host-to-host communication services for applications
+§ Creates Segment (data unit) containing
+§ Sequence number
+§ Checksum
+§ Port number
+
+§ Protocols
+§ TCP
+§ Connection oriented protocol
+§ Provides: Flow Control, Error checking
+§ Guarantees data delivery
+§ Slower than UDP
+§ E.g. WWW, HTTP
+§ UDP
+§ Connectionless protocol
+§ Does not provide flow control
+§ Does not guarantee data delivery
+§ Faster than TCP
+§ E.g. streaming, online games
+
+Network Layer
+§ Responsible for packet forwarding including routing through
+intermediate routers
+§ Responsible for splitting segment into packets containing
+§ Source IP address
+§ Destination IP address
+§ Protocols
+§ IP: Internet Protocol
+§ IPX: Internetwork Packet Exchange
+§ IPSec: Internet Protocol Security
+§ EGP: Exterior Gateway Protocol
+Devices: used to form wan
+
+Data Link Layer
+§ Transfers data between
+§ adjacent network nodes in a wide area network (WAN) or
+§ between nodes on the same local area network (LAN) segment
+§ Encapsulates packet into Frames containing
+§ Source MAC Address
+§ Destination MAC Address
+§ Sublayers
+§ Logical Link Layer
+§ Media Access Control Layer
+
+Data Link Layer: Logical Link Layer
+§ The uppermost sublayer multiplexes protocols running at the top of data link layer, and optionally
+provides flow control, acknowledgment, and error notification
+§ Provides addressing and control of the data link
+§ Services
+§ Error control (automatic repeat request, ARQ)
+§ Flow control [Data-link-layer flow control is not used in LAN protocols such as Ethernet, but in modems and
+wireless networks]
+
+Data Link Layer: Media Access Control Layer
+§ Refers to the sublayer that determines who is allowed to access the media at any one time
+(CSMA/CD)
+§ Determines where one frame of data ends and the next one starts (frame synchronization)
+§ Frame synchronization uses: time based, character counting, byte stuffing and bit stuffing.
+§ Services
+§ Multiple access protocols for channel-access control,
+§ CSMA/CD protocols for collision detection and re-transmission in Ethernet networks
+§ CSMA/CA protocol for collision avoidance in wireless networks
+§ Physical addressing (MAC addressing)
+§ LAN switching (packet switching), including MAC filtering, Spanning Tree Protocol (STP) and Shortest Path
+Bridging (SPB)
+§ Data packet queuing or scheduling
+
+Addressing Modes: MAC Address
+§ Used to identify NIC uniquely
+§ Consists of 6 bytes [48 bits]
+§ First 3 bytes represents manufacturer
+§ Next 3 bytes represents NIC’s unique address 
+
+MAC:-
+ physical address
+->read- only address
+→ data link layers address
+→ real address 
