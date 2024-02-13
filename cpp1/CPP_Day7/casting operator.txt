@@ -1,0 +1,6 @@
+dest=case_operator<dest_type>(source)
+
+reintrepret_cast=Used to convert any type into any other incompatible type
+const_cast=convert constant pointer/ref into non-constant pointer/ref
+static_cast=specially used for non-polymorphic type
+dynamic_cast= mainly designed for polymorphic type only

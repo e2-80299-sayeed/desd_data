@@ -1,0 +1,23 @@
+Q1: Why Static function never be virtual?
+Answer - > It is not possible, even I say it is not meaningful. 
+Because A static member function is something that does not relate to any object, It a class level entity.
+and Virtual functions are invoked when you have a pointer of base class and object is of a class. 
+So we may say virtual function are call by using object and static function wont required any object to call.
+
+Q2: Why we can not declare static member function constant?
+Answer -> Constant function cannot change the state of object (value of data members) like display() or print() so this function are related to object
+By using object we need call const function.
+A static member function is something that does not relate to any object, 
+It a class level entity and the main use of static function is to update static data member.
+
+Q3: Why global function we can not declare as const?
+Answer: -> Constant function cannot change the state of object (value of data members) like display() or print() so this function are related to object
+As global function are not related to any object so global function never be const.
+Even in C lang all the functions are global so there is no concept of const function.
+
+Q4: What is "this" pointer? Is it available for static, virtual, const and friend functions?
+Answer: -> "this pointer" is a address of current or calling object. It is passed as implicit argument to the member function.
+In static function "this pointer" is not available because they are not related to any object
+In virtual function "this pointer" is available
+In const function "this pointer" is available
+In friend function "this pointer" is not available because they are not member function of class
