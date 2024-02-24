@@ -1,0 +1,13 @@
+
+Steps to get data from git
+
+
+
+GitHub UserName: sunbeam-desd
+GitHub Password/Token: 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
+
+Install GIT in Ubuntu, if not installed yet.
+> sudo apt install git
+
+Clone ECP repository in your home directory using above username and password:
+> git clone https://github.com/sunbeam-desd-sep2023/dsa.git

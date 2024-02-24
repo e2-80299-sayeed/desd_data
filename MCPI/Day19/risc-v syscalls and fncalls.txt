@@ -1,0 +1,67 @@
+
+System Calls are functions exposed by the kernel so that user programs can access kernel functionality.
+User programs usually do not have direct access to Kernel resources/hardware. These resources and hardware access is available to OS kernel.
+
+User programs runs with lower privilege -- user mode
+Kernel programs runs with higher privilege -- supervisor mode
+
+CPU mode is switched by interrpt -- software interrupt i.e. trap.
+    x86 CPU --> INT
+    ARM CPU --> SWI or SVC
+    RISC-V CPU --> ECALL
+
+* x86-32 arch -- Linux _exit(13)
+    ```asm
+    mov %eax, 1
+    mov %ebx, 13
+    int 0x80
+    ```
+
+* ARM Cortex-A arch -- Linux _exit(13)
+    ```asm
+    mov r7, #1
+    mov r0, #13
+    swi 0
+    ```
+
+* RISC-V arch -- Linux _exit(13)
+    ```asm
+    .text
+    _start:
+        addi a7, x0, 93         # li a7, 93
+        addi a0, x0, 13         # li a0, 13
+        ecall                   # ecall
+    ```
+
+RISC-V Function Call -- Calling Convention
+    * Function is called using "call" instruction or "jal" instruction.
+    * Function is returned using "ret" instruction or "jal" instruction.
+    * Function arguments: a0-a7
+    * Function return value: a0-a1
+    * Caller/Calling saved registers: refer pdf
+    * Callee/Called saved registers: refer pdf
+
+add_numbers:
+    # save ra on stack
+    push {lr}
+
+    # ret = arg1 + arg2
+    add a0, a0, a1
+
+    # printf(...);
+
+    # restore ra from stack
+    pop {lr}
+    ret
+
+_start:
+    # ...
+
+    # t1 = add_numbers(7, 5);
+    li a0, 7
+    li a1, 5
+    call add_numbers
+    mv t1, a0
+
+
+
