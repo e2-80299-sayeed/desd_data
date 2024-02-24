@@ -1,0 +1,584 @@
+Directory access library functions (man section 3)
+opendir()
+readdir():
+	returns: Pointer to struct dirent, if next entry is available.
+  	Returns NULL if end of dir file is reached.
+closedir()
+
+##Dirty buffer:
+Modified buffers that have not been written to disk are termed DIRTY buffers and are typically written to disk by checkpoint processing.
+
+close() syscall
+Decrement ref count in open file table entry (struct file).
+If ref count drops to zero, OFT entry is deleted (from OFT).
+
+File Allocation Mechanisms
+The file data blocks are allocated on the file system (data blocks region) on the disk.
+The data blocks can be allocated in various ways (depending on file system).
+Contiguous allocation
+Linked list allocation
+Indexed allocation
+The information about allocated blocks is maintained into inode (FCB).
+
+Number of blocks required for the file may not be available contiguously. This is called as "External
+Fragmentation".
+To solve this problem, data blocks of the files can be shifted/moved so that max contiguous free space
+will be available. This is called as "defragmentation".
+
+
+##lseek() syscall
+• Change the file position in open file table entry (struct file --> f_pos).
+• And returns new file position (from the beginning of the file)
+• Examples:
+• lseek(fd, 0, SEEK_SET);
+• filp->f_pos = 0;
+• lseek(fd, offset, SEEK_SET);
+• filp->f_pos = offset;
+• lseek(fd, 0, SEEK_END);
+• filp->f_pos = size; // file size (from the inode)
+• lseek(fd, offset, SEEK_END);
+• filp->f_pos = size + offset; // note that offset will be negative
+• lseek(fd, offset, SEEK_CUR);
+• filp->f_pos = filp->f_pos + offset
+
+
+##Disk allocation mechanism -- Indexed allocation -- Like UFS
+inode keep array of 15 members to maintain information about data blocks.
+1-12 --> direct data blocks
+13 --> single indirect data blocks
+14 --> double indirect data blocks
+15 --> triple indirect data blocks
+
+
+Journaling mechanims speed-up detecting and repairing file system inconsistencies.
+
+mount command internally calls mount() system call. For each mount kernel keep information in a
+struct called "vfsmount".
+
+On success, fork() returns pid of the child to the parent process and 0 to the child process.
+On failure, fork() returns -1 to the parent.
+
+getpid() vs getppid()
+pid1 = getpid(); // returns pid of the current process
+pid2 = getppid(); // returns pid of the parent of the current process
+
+The first process (process 1) is "init" process, which is created by a hardcoded "process 0".
+In newer Linux kernel versions "init" process is renamed as "systemd".
+
+Orphan process
+If parent of any process is terminated, that child process is known as orphan process.
+The ownership of such orphan process will be taken by "init" process.
+
+Zombie process
+If process is terminated before its parent process and parent process is not reading its exit status, then
+even if process's memory/resources is released, its PCB will be maintained. This state is known as
+"zombie state".
+To avoid zombie state parent process should read exit status of the child process. It can be done using
+wait() syscall.
+
+exec() syscall
+exec() syscall "loads a new program" in the calling process's memory (address space) and replaces the
+older (calling) one.
+
+If exec() succeed, it does not return (rather new program is executed).
+There are multiple functions in the family of exec():
+execl(), execlp(), execle(),
+execv(), execvp(), execve()
+exec() family multiple functions have different syntaxes but same functionality.
+
+execlp() or execvp() automatically search executable in all directories in the PATH variable
+i.e. the first arg need not to be full path of executable
+
+execve(), execle() and execvpe() can pass Environment variables to the child program.
+
+Free Space Management Mechanisms
+The free data blocks information is maintained in the super-block.
+Super block use some data structures to maintain this information.
+Bit vector
+Linked list
+Grouping
+Counting
+
+execs sys call loads a new program into calling process's
+(replacing old program image)
+
+Internally shell use fork() + exec() to execute them.
+external commands e.g. ls, rm, cp, vim, gcc, who, cal, etc.
+shell built-in commands e.g. alias, cd, echo, exit,
+
+The command can be suffixed by "&" to execute it asynchronously. In this case shell prompt returns
+immediately after starting execution of the command.
+
+kill() syscall
+kill() send signal to another proces.
+ret = kill(pid, signum);
+arg1: pid of the process to whom signal is to be sent.
+arg2: signal number -- defined in signal.h
+returns: 0 on success and -1 on failure.
+
+
+##IMP signals:
+1. SIGINT   (2): CTRL+C 
+2. SIGTERM (15): 
+3. SIGKILL (9) : 
+4. SIGSTOP (19): CTRL+S,
+5. SIGCONT (18): CTRL+Q, 
+6. SIGSEGV (11): 
+7. SIGCHLD (17): 
+8. SIGHUP (1):
+
+
+Internally OS maintains list of messages called as "message queue" or "mailbox".
+
+IO Redirection
+Shell provides redirection feature, In which input, output and/or error of the process can be
+redirected into the file instead of terminal.
+terminal> command < in.txt
+terminal> command > out.txt
+terminal> command 2> err.txt
+redirection can be done programmatically using dup() system call.
+dup() syscall
+Copies given file descriptor on lowest numbered available file descriptor.
+dup(fd)
+arg1: Copies file descriptor on lowest numbered available file descriptor
+
+Pipe
+If writer process is terminated, reader process will read the data from pipe buffer and then will get EOF.
+If reading process is terminated, writing process will receive SIGPIPE signal. , 
+
+##pipe(), mkfifo() both return 0 on success.
+
+Socket
+Socket is defined as communication endpoint.
+Sockets can be used for bi-directional communication.
+Using socket one process can communicate with another process on same machine (UNIX socket) or
+different machine (INET sockets) in the network.
+Sockets can also be used for communication over bluetooth, CAN, etc.
+terminal> man 7 socket
+
+shmat() syscall
+returns pointer to the shared memory region on success. -1 is returned on failure.
+
+Synchronization
+Multiple processes accessing same resource at the same time, is known as "race condition".
+When race condition occurs, resource may get corrupted (unexpected results).
+Peterson's problem, if two processes are trying to modify same variable at the same time, it can
+produce unexpected results.
+
+Code block to be executed by only one process at a time is referred as Critical section. If multiple
+processes execute the same code concurrently it may produce undesired results.
+To resolve race condition problem, one process can access resource at a time. This can be done using
+sync objects/primitives given by OS.
+OS Synchronization objects are:
+Semaphore, Mutex, Condition variables
+
+Q. If sema count = -n, how many processes are waiting on that semaphore?
+Answer: "n" processes waiting
+
+Q. If sema count = 5 and 3 P & 4 V operations are performed, then what will be final count of
+semaphore?
+Ans: 5 - 3 + 4 = 6
+
+Mutex
+Functionally it is same as "binary semaphore".
+Critical section problem can be solved using mutex.
+
+
+Deadlock
+Deadlock occurs when four conditions/characteristics hold true at the same time.
+No preemption: A resource should not be released until task is completed.
+Mutual exclusion: Resources is not sharable.
+Hold & Wait: Process holds a resource and wait for another resource.
+Circular wait: Process P1 holds a resource needed for P2, P2 holds a resource needed for P3 and
+P3 holds a resource needed for P1.
+
+##Deadlock Avoidance
+Algorithms used for this are:
+1. Resource allocation graph
+2. Banker's algorithm
+3. Safe state algorithm:
+Max num of resources required < Num of resources + Num of processes
+If condition is true, deadlock will never occur.
+If condition is false, deadlock may occur.
+
+
+##Multi-Threading
+Thread concept
+Threads are used to execute multiple tasks concurrently in the same program/process.
+Thread is a light-weight process.
+For each thread new control block and stack is created. Other sections (text, data, heap, ...) are
+shared with the parent process.
+Inter-thread communication is much faster than inter-process communication.
+Context switch between two threads in the same process is faster.
+Thread stack is used to create function activation records of the functions called/executed by the
+thread.
+
+
+##Process vs Thread
+In modern OS, process is a container holding resources required for execution, while thread is unit of
+execution/scheduling.
+Process holds resources like memory, open files, IPC (e.g. signal table, shared memory, pipe, etc.).
+PCB contains resources information like pid, exit status, open files, signals/ipc, memory info, etc.
+CPU time is allocated to the threads. Thread is unit of execution.
+TCB contains execution information like tid, scheduling info (priority, sched algo, time left, ...),
+Execution context, Kernel stack, etc.
+terminal> ps -e -o pid,nlwp,cmd
+terminal> ps -e -m -o pid,tid,nlwp
+terminal> cat /proc/pid/maps
+
+##main thread
+For each process one thread is created by default called as main thread.
+The main thread executes entry-point function of the process.
+The main thread use the process stack.
+When main thread is terminated, the process is terminated.
+When a process is terminated, all threads in the process are terminated.
+
+##Thread creation
+Each thread is associated with a function called as thread function/procedure.
+The thread terminates when the thread function is completed.
+Steps for thread creation
+step1: Implement thread function
+step2: Create thread using syscall/library
+
+##POSIX Thread Functions
+1. pthread_create()
+   returns: 0 on success
+2. pthread_join(th_id, (void**)&res);
+3. pthread_exit(result);
+4. pthread_cancel(tid);
+5. pthread_kill(tid, signum);
+
+
+##Threading models
+Threads created by thread libraries are used to execute functions in user program. They are called as
+"user threads".
+Threads created by the syscalls (or internally into the kernel) are scheduled by kernel scheduler. They
+are called as "kernel threads".
+User threads are dependent on the kernel threads. Their dependency/relation (managed by thread
+library) is called as "threading model".
+
+There are four threading models:
+Many to One
+Many to Many
+One To One
+Two Level Model
+
+##mutex functions:  
+pthread_mutex_t --> Data type to represent mutex object
+pthread_mutex_init()
+pthread_mutex_lock()
+pthread_mutex_unlock()
+pthread_mutex_destroy()
+
+##semaphore posix api:
+sem_t --> Data type to represent semaphore object
+Semaphore has "single" counter in it.
+sem_init() --> initialize to a count.
+sem_wait() --> P() operation
+sem_post() --> V() operation
+sem_destroy() --> destroy the semaphore.
+sem_trywait(), sem_timedwait()
+
+
+##Condition variable
+A thread can wait for another thread completing some task.
+Condition variable always work in context with some mutex.
+POSIX APIs
+pthread_cond_t <-- represent condition variable.
+pthread_cond_init()
+pthread_cond_destroy()
+pthread_cond_wait()
+pthread_cond_signal()
+pthread_cond_broadcast()
+
+##There are three types of mutex:
+
+PTHREAD_MUTEX_NORMAL:
+Locking a mutex twice within a single thread cause deadlock (thread is blocked).
+Unlocking a mutex owned by some other thread or already unlocked mutex, will produce
+undefined results.
+Since this mutex do not check mutex rules, they are much efficient/faster.
+
+PTHREAD_MUTEX_ERRORCHECK:
+Locking a mutex twice within a single thread will fail.
+Unlocking a mutex owned by some other thread or already unlocked mutex, will fail.
+This is slower than normal mutex; but useful for debugging.
+
+PTHREAD_MUTEX_RECURSIVE:
+Mutex will maintain lock count. When same thread lock mutex multiple times, lock count
+will be incremented.
+When unlocked, the lock count will decrement. The mutex will be released when lock
+count drops to zero.
+Unlocking a mutex owned by some other thread or already unlocked mutex, will fail.
+
+
+##Starvation:
+Due to other high priority process some low priority process is not getting CPU time for the
+execution.
+The starved process is in ready state. They are in ready queue.
+The starved process's priority can be increased dynamically, so that it will be scheduled (later).
+This technique is called as "aging".
+
+
+##Memory Management
+There are three memory management schemes are available (as per MMU hardware).
+1. Contiguous Allocation
+2. Segmentation
+3. Paging
+
+##Fixed Partition
+RAM is divided into fixed sized partitions.
+This method is easy to implement.
+Number of processes are limited to number of partitions.
+Size of process is limited to size of partition.
+If process is not utilizing entire partition allocated to it, the remaining memory is wasted. This is called
+as "internal fragmentation".
+
+##Dynamic Partition
+Memory is allocated to each process as per its availability in the RAM. After allocation and deallocation
+of few processes, RAM will have few used slots and few free slots.
+OS keep track of free slots in form of a table.
+For any new process, OS use one of the following mechanism to allocate the free slot.
+
+##First Fit: Allocate first free slot which can accommodate the process.
+
+##Best Fit: Allocate that free slot to the process in which minimum free space will remain.
+
+##Worst Fit: Allocate that free slot to the process in whic maximum free space will remain.
+
+Statistically it is proven that First fit is faster algo; while best fit provides better memory utilization.
+Memory info (physical base address and size) of each process is stored in its PCB and will be loaded
+into MMU registers (base & limit) during context switch.
+CPU request virtual address (address of the process) and is converted into physical address by MMU as
+shown in diag.
+If invalid virtual address is requested by the CPU, process will be terminated.
+If amount of memory required for a process is available but not contiguous, then it is called as "external
+fragmentation".
+To resolve this problem, processes in memory can be shifted/moved so that max contiguous free space
+will be available. This is called as "compaction".
+
+
+##Virtual Memory
+The portion of the hard disk which is used by OS as an extension of RAM, is called as "virtual memory".
+If sufficient RAM is not available to execute a new program or grow existing process, then some of the
+inactive process is shifted from main memory (RAM), so that new program can execute in RAM (or
+existing process can grow). It is also called as "swap area" or "swap space".
+Shifting a process from RAM to swap area is called as "swap out" and shifting a process from swap area to
+RAM is called as "swap in".
+In few OS, swap area is created in form of a partition. E.g. UNIX, Linux, ...
+In few OS, swap area is created in form of a file E.g. Windows (pagefile.sys), ...
+Virtual memory advantages:
+Can execute more number of programs.
+Can execute bigger sized programs.
+
+
+##Segmentation
+Instead of allocating contiguous memory for the whole process, contiguous memory for each segment
+can be allocated. This scheme is known as "segmentation".
+Since process does not need contiguous memory for entire process, external fragmentation will be
+reduced.
+In this scheme, PCB is associated with a segment table which contains base and limit (size) of each
+segment of the process.
+During context switch these values will be loaded into MMU segment table.
+CPU request virtual address in form of segment address and offset address.
+Based on segment address appropriate base-limit pair from MMU is used to calculate physical address
+as shown in diag.
+MMU also contains STBR register which contains address of process's segment table in the RAM.
+
+
+##Demand Segmentation
+If virtual memory concept is used along with segmentation scheme, in case low memory, OS may swap
+out a segment of inactive process.
+When that process again start executing and ask for same segment (swapped out), the segment will be
+loaded back in the RAM. This is called as "demand segmentation".
+Each entry of the segment table contains base & limit of a segment. It also contains additional bits like
+segment permissions, valid bit, dirty bit, etc.
+If segment is present in main memory, its entry in seg table is said to be valid (v=1). If segment is
+swapped out, its entry in segment table is said to be invalid (v=0).
+
+
+##Paging
+RAM is divided into small equal sized partitions called as "frames" / "physical pages".
+Process is divided into small equal sized parts called as "pages" or "logical/virtual pages".
+page size = frame size.
+One page is allocated to one empty frame.
+OS keep track of free frames in form of a linked list.
+Each PCB is associated with a table storing mapping of page address to frame address. This table is
+called as "page table".
+During context switch this table is loaded into MMU.
+CPU requests a virtual address in form of page address and offset address. It will be converted into
+physical address as shown in diag.
+MMU also contains a PTBR, which keeps address of page table in RAM.
+If a page is not utilizing entire frame allocated to it (i.e. page contents are less than frame size), then it is called as "internal fragmentation".
+Frame size can be configured in the hardware. It can be 1KB, 2KB or 4KB, ...
+Typical Linux and Windows OS use page size = 4KB.
+
+
+##Paging
+Process size = 40 MB
+Page size = 4 KB
+Number of pages = 10240
+Number of page table entries = 10240
+Page Table entry size = 4 bytes
+Size of page table = 10240 * 4 = 40 KB
+
+
+##TLB (Translation Look-Aside Buffer) Cache
+TLB is high-speed associative cache memory used for address translation in paging MMU.
+TLB has limited entries (e.g. in P6 arch TLB has 32 entries) storing recently translated page address and
+frame address mappings.
+The page address given by CPU, will be compared at once with all the entries in TLB and corresponding
+frame address is found.
+If frame address is found (TLB hit), then it is used to calculate actual physical address in RAM (as shown in diag).
+If frame address is not found (TLB miss), then PTBR is used to access actual page table of the process in
+the RAM (associated with PCB). Then page-frame address mapping is copied into TLB and thus physical
+address is calculated.
+If CPU requests for the same page again, its address will be found in the TLB and translation will be
+faster.
+Context switch can be handled in one of the following ways:
+During context switch TLB is flushed i.e. all entries used by previous process will be cleared. Thus
+new entries page addresses will not conflict with prev process page addresses.
+TLB can store page addresses along with PID of the process. In this case there is no need to flush
+TLB during context switch. The comparison of the page address will not conflict with another
+process, because it is associated with PID of the process. This combination PID and Page Address
+is called as "ASID"(Adress Space identifier).
+
+
+##Two Level Paging
+Primary page table has number of entries and each entry point to the secondary page table page.
+Secondary page table has number of entries and each entry point to the frame allocated for the
+process.
+Virtual address requested by a process is 32 bits including
+p1 (10 bits) -> Primary page table index/addr
+p2 (10 bits) -> Secondary page table index/addr
+d (12 bits) -> Frame offset
+If frame size is 4KB, 12 bits are sufficient to speficy any offset in the frame. This will also ensure that "d" will not contain any invalid frame offset.
+If virtual address of a process is of 32 bits [p1|p2|d], then maximum address of the process can be 1024
+* 1024 * 4 * 1024 = 4 GB.
+
+
+##Demand Paging
+When virtual memory is used with paging memory management, pages can be swapped out in case of
+low memory.
+The pages will be loaded into main memory, when they are requested by the CPU. This is called as
+"demand paging".
+
+
+##Page Fault
+Each page table entry contains frame address, permissions, dirty bit, valid bit, etc.
+If page is present in main memory its page table entry is valid (valid bit = 1).
+If page is not present in main memory, its page table entry is not valid (valid bit = 0).
+This is possible due to one of the following reasons:
+Page address is not valid (dangling pointer).
+Page is on disk/swapped out.
+Page is not yet allocated.
+If CPU requests a page that is not present in main memory (i.e. page table entry valid bit=0), then "page
+fault" occurs.
+Then OS's page fault exception handler is invoked, which handles page faults as follows:
+1. Check virtual address due to which page fault occured. If it is not valid (i.e. dangling pointer),
+terminate the process. (Validity fault).
+2. Check if read-write operation is permitted on the address. If not, terminate the process.
+(Protection fault).
+3. If virtual address is valid (i.e. page is swapped out), then locate one empty frame in the RAM.
+4. If page is on swap device or hard disk, swap in the page in that frame.
+5. Update page table entry i.e. add new frame address and valid bit = 1 into PTE.
+6. Restart the instruction for which page fault occurred.
+
+
+##Page Replacement Algorithms
+While handling page fault if no empty frame found (step 3), then some page of any process need to be
+swapped out. This page is called as "victim" page.
+The algorithm used to decide the victim page is called as "page replacement algorithm".
+There are three important page replacement algorithms.
+FIFO
+Optimal
+LRU
+
+##FIFO
+The page brought in memory first, will be swapped out first.
+Sometimes in this algorithm, if number of frames are increased, number of page faults also increase.
+This abnormal behaviour is called as "Belady's Anomaly".
+
+##OPTIMAL
+The page not required in near future is swapped out.
+This algorithm gives minimum number of page faults.
+This algorithm is not practically implementable.
+
+##LRU
+The page which not used for longer duration will be swapped out.
+This algorithm is used in most OS like Linux, Windows, ...
+LRU mechanism is implemented using "stack based approach" or "counter based approach".
+This makes algorithm implementation slower.
+Approximate LRU algorithm close to LRU, however is much faster.
+
+
+##malloc()
+C library function that dynamically allocate contiguous memory in the heap section of the process.
+The malloc() internally calls brk()/sbrk() or mmap() syscall to allocate contiguous address range into
+virtual address space of the process.
+When malloc() allocating small segments, it will return base address from existing heap address range.
+If exceeds beyond heap address range, then it internally calls brk() syscall to increase the head address
+range.
+When malloc() allocating larger segments, it will invoke mmap() syscall to allocate a new segment into
+process's address space.
+Note that brk()/mmap() are allocating contiguous virtual addresses for the process.
+When virtual addresses are allocated to the process their page table entries are created. All these PTEs
+are invalid (yet to allocate).
+The physical memory is allocated pagewise into the page fault handler, when the memory is used
+(read/write).
+Paging optimization
+If page fault handling involves disk IO, it is referred as major fault; otherwise it is minor fault.
+To improve paging performance major page faults (disk io) should be minimized.
+terminal> ps -e -o pid,vsz,rsz,maj_flt,min_flt,cmd
+
+
+##Dirty Bit
+Each entry in page table has a dirty bit.
+When page is swapped in, dirty bit is set to 0.
+When write operation is performed on any page, its dirty bit is set to 1. It indicate that copy of the page
+in RAM differ from the copy in swap area.
+When such page need to be swapped out again, OS check its dirty bit. If bit=0 (page is not modified)
+actual disk IO is skipped and improves performance of paging operation.
+If bit=1 (page is modified), page is physically overwritten on its older copy in the swap area.
+
+
+
+##vfork()
+fork() create child process by duplicating  calling process.
+Allocates separate memory space for the child process.
+Create a new thread to execute the child process.
+If exec() is called, it release allocated segments and reallocate as per need of new program to be
+loaded.
+To avoid this, BSD UNIX developed vfork() system call to create new process. This should be used only
+while using exec().
+vfork() creates child process virtually. If doesn't duplicate parent process; rather suspends execution of
+parent and contine execution of child process until exec() or exit() is called.
+When exec() is called, then actual memory is allocated for the child process and new thread of
+execution is created for the child process. Hereafter child process executes independent of the parent
+process.
+
+
+##Copy On Write
+fork() syscall creates a logical copy of the calling process.
+Initially, child and parent both processes share the same pages in the memory pages.
+When one of the process try to modify contents of a page, the page is copied first; so that parent and
+child both will have seperate physical copies of that page. This will avoid modification of a process by
+another process.
+This concept is known as "copy on write".
+The primary advantage of this mechanism is to speed up process creation (fork()).
+
+
+##Virtual pages vs Logical pages
+By default all pages of user space process can be swapped out/in. This may change physical address of
+the page. All such pages whose physical address may change are referred as "Virtual pages".
+Few kernel pages are never swapped out. So their physical address remains same forever. All such
+pages whose physical address will not change are referred as "logical pages".
+A process may call mlock() or mlockall() syscall that prevent swapping out the pages. This in turn make
+pages logical. Refer manual of mlock().
+The page stealing process runs in background and swap out the non active pages (i.e. not in current
+active set) to make room for the new allocations by the running processes.
+
+
+##Virtual memory
+Virtual memory is the memory that can be given to a process. Typically it includes RAM size (except
+kernel space) + Swap area - os memory
