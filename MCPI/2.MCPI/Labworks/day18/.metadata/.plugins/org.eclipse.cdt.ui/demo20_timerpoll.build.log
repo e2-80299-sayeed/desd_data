@@ -1,0 +1,10 @@
+17:55:01 **** Incremental Build of configuration Debug for project demo20_timerpoll ****
+make -j8 all 
+arm-none-eabi-size   demo20_timerpoll.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6972	     20	   1644	   8636	   21bc	demo20_timerpoll.elf
+Finished building: default.size.stdout
+ 
+
+17:55:01 Build Finished. 0 errors, 0 warnings. (took 389ms)
+

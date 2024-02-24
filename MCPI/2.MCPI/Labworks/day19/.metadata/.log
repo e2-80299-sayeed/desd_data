@@ -1,0 +1,27 @@
+!SESSION 2022-05-31 14:31:52.524 -----------------------------------------------
+eclipse.buildId=Version 1.6.1
+java.version=11.0.9.1
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_IN
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data D:\DESD2022\2.MCPI\Labworks\day19
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2022-05-31 14:32:04.613
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2022-05-31 14:32:04.763
+!MESSAGE Log4j initialized with config file D:\DESD2022\2.MCPI\Labworks\day19\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2022-05-31 14:32:09.853
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 4 4 2022-05-31 14:32:10.514
+!MESSAGE com.st.stm32cube.ide.mcu.ide/META-INF/version/build_ref file not found, build reference will not be reported into properties
+
+!ENTRY org.eclipse.cdt.core 1 0 2022-05-31 14:36:05.917
+!MESSAGE Indexed 'demo21_tim_outputcompare' (21 sources, 81 headers) in 4.42 sec: 4,402 declarations; 18,229 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0088%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2022-05-31 14:56:46.847
+!MESSAGE Indexed 'demo22_tim_pwm' (21 sources, 81 headers) in 3.74 sec: 4,402 declarations; 18,229 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0088%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2022-05-31 15:27:16.121
+!MESSAGE Indexed 'demo23_systick' (21 sources, 81 headers) in 4.08 sec: 4,402 declarations; 18,229 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0088%)

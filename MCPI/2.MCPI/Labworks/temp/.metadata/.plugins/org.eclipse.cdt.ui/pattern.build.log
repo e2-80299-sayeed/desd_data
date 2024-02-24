@@ -1,0 +1,7 @@
+23:10:01 **** Clean-only build of configuration Debug for project pattern ****
+make -j8 clean 
+make: *** No rule to make target 'clean'.  Stop.
+"make -j8 clean" terminated with exit code 2. Build might be incomplete.
+
+23:10:02 Build Failed. 1 errors, 0 warnings. (took 116ms)
+

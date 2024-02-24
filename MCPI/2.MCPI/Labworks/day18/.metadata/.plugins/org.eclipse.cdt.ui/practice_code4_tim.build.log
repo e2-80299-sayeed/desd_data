@@ -1,0 +1,10 @@
+18:07:41 **** Incremental Build of configuration Debug for project practice_code4_tim ****
+make -j8 all 
+arm-none-eabi-size   practice_code4_tim.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7816	     20	   1644	   9480	   2508	practice_code4_tim.elf
+Finished building: default.size.stdout
+ 
+
+18:07:41 Build Finished. 0 errors, 0 warnings. (took 446ms)
+

@@ -1,0 +1,5 @@
+lis3dsh.c:16:6:LIS3DSH_WriteIO	24	static
+lis3dsh.c:28:6:LIS3DSH_ReadIO	24	static
+lis3dsh.c:44:6:LIS3DSH_Init	24	static
+lis3dsh.c:55:17:LIS3DSH_GetRawData	32	static
+lis3dsh.c:71:6:LIS3DSH_DRdy	16	static

@@ -1,0 +1,10 @@
+14:52:34 **** Incremental Build of configuration Debug for project demo21_tim_outputcompare ****
+make -j8 all 
+arm-none-eabi-size   demo21_tim_outputcompare.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9288	     20	   1644	  10952	   2ac8	demo21_tim_outputcompare.elf
+Finished building: default.size.stdout
+ 
+
+14:52:35 Build Finished. 0 errors, 0 warnings. (took 477ms)
+

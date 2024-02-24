@@ -1,0 +1,10 @@
+12:48:44 **** Incremental Build of configuration Debug for project lm35 ****
+make -j8 all 
+arm-none-eabi-size   lm35.elf 
+   text	   data	    bss	    dec	    hex	filename
+  17700	    120	   1736	  19556	   4c64	lm35.elf
+Finished building: default.size.stdout
+ 
+
+12:48:45 Build Finished. 0 errors, 0 warnings. (took 515ms)
+

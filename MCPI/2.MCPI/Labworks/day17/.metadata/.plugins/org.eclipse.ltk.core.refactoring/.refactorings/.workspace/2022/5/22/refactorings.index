@@ -1,0 +1,6 @@
+1653641286000	Delete resource 'can_loopback'
+1653641777873	Delete resource 'can_loopback'
+1653648645499	Delete resource 'can_loopback_uart'
+1653652330864	Delete resource 'can_loopback1'
+1653652381786	Rename resource 'can_loopback1'
+1653652553259	Delete resource 'can_loopback2'

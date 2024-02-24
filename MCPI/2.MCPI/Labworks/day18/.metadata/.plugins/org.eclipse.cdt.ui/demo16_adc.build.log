@@ -1,0 +1,10 @@
+15:01:57 **** Incremental Build of configuration Debug for project demo16_adc ****
+make -j8 all 
+arm-none-eabi-size   demo16_adc.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12424	    120	   1736	  14280	   37c8	demo16_adc.elf
+Finished building: default.size.stdout
+ 
+
+15:01:58 Build Finished. 0 errors, 0 warnings. (took 697ms)
+

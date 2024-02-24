@@ -1,0 +1,7 @@
+12:48:37 **** Clean-only build of configuration Debug for project demo04_gpiobitband ****
+make -j8 clean 
+rm -rf *
+ 
+
+12:48:38 Build Finished. 0 errors, 0 warnings. (took 186ms)
+

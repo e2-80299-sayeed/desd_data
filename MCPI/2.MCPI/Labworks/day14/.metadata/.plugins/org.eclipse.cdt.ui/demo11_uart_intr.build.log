@@ -1,0 +1,10 @@
+12:20:34 **** Incremental Build of configuration Debug for project demo11_uart_intr ****
+make -j8 all 
+arm-none-eabi-size   demo11_uart_intr.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9972	     20	   1636	  11628	   2d6c	demo11_uart_intr.elf
+Finished building: default.size.stdout
+ 
+
+12:20:34 Build Finished. 0 errors, 0 warnings. (took 527ms)
+

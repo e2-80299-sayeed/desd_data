@@ -1,0 +1,8 @@
+Configure TIM6 to generate periodic interrupt after every 3 seconds.
+When Timer interrupt arrives, On led PD.13 and start the ADC1 
+to process reading of channel 0. Generate ADC interrupt when 
+conversion is completed.When ADC interrupt arrives, On ledn PD.14 
+and send the ADC reading on USART2. Generate UART interrupt for 
+transmission completion. When UART interrupt arrives, Toggle led 
+PD.15 and then clear PD.13 and PD.14 Leds. Keep PD12 toggling 
+after every 500 ms using TIM7 interrupt.

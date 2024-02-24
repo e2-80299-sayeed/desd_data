@@ -1,0 +1,10 @@
+15:33:29 **** Incremental Build of configuration Debug for project demo17_dac ****
+make -j8 all 
+arm-none-eabi-size   demo17_dac.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6488	     20	   1588	   8096	   1fa0	demo17_dac.elf
+Finished building: default.size.stdout
+ 
+
+15:33:30 Build Finished. 0 errors, 0 warnings. (took 734ms)
+

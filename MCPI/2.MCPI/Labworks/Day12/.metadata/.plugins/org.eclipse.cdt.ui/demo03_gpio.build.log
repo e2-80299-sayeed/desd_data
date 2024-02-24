@@ -1,0 +1,7 @@
+12:37:27 **** Clean-only build of configuration Debug for project demo03_gpio ****
+make -j8 clean 
+rm -rf *
+ 
+
+12:37:27 Build Finished. 0 errors, 0 warnings. (took 175ms)
+

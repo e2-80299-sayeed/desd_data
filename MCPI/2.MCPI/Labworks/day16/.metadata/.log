@@ -1,0 +1,21 @@
+!SESSION 2022-05-26 15:20:54.972 -----------------------------------------------
+eclipse.buildId=Version 1.6.1
+java.version=11.0.9.1
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_IN
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2022-05-26 15:21:16.664
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2022-05-26 15:21:16.771
+!MESSAGE Log4j initialized with config file D:\DESD2022\2.MCPI\Labworks\day16\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2022-05-26 15:21:21.431
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 4 4 2022-05-26 15:21:22.073
+!MESSAGE com.st.stm32cube.ide.mcu.ide/META-INF/version/build_ref file not found, build reference will not be reported into properties
+
+!ENTRY org.eclipse.cdt.core 1 0 2022-05-26 15:24:33.853
+!MESSAGE Indexed 'demo14_spi_acceI' (36 sources, 100 headers) in 5.96 sec: 7,773 declarations; 48,811 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0035%)
